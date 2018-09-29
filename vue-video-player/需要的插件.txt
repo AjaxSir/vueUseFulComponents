@@ -5,3 +5,6 @@ require('vue-video-player/src/custom-theme.css')
 
 import VideoPlayer from 'vue-video-player'
 Vue.use(VideoPlayer)
+
+npm install dplayer --save 
+npm install hls.js
