@@ -1,0 +1,6 @@
+node_modules/.bin/webpack app/main.js public/bundle.js 4.0之前
+npx webpack app/main.js --output public/bundle.js  webpack4.0之后需要这个打包
+
+需要的依赖 
+npm install --save-dev webpack
+npm install webpack-dev-server -D
