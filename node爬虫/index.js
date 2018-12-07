@@ -57,9 +57,6 @@ var url = require('url')
 // })
 // })
 
-// for (var i = 1000; i< 2000; i++) {
-	
-// }
 
 // })
 // urls.forEach((item) => {
