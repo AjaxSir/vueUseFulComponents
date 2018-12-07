@@ -1,0 +1,24 @@
+错误捕获:	
+$("#btn").on("click", async () => {
+  try {
+    const user = await getUser('tylermcginnis')
+    const weather = await getWeather(user.location)
+ 
+    updateUI({
+      user,
+      weather,
+    })
+  } catch (e) {
+    showError(e)
+  }
+})
+
+只要你为函数添加async，它就会隐式的返回一个 Promise
+
+async function add (x, y) {
+  return x + y
+}
+ 
+add(2,3).then((result) => {
+  console.log(result) // 5
+})
