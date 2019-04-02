@@ -1,3 +1,4 @@
+把平时容易弄混的 弄错的总结一下 以及一些好用的组件
 粘性组件demo:
 <sticky :className="'sub-navbar'">
      <span style="float:left;color:white;margin-left:20px">设备数据</span>
