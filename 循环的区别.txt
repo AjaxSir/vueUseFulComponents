@@ -1,0 +1,58 @@
+/******************reduce
+var a=new Array(1,2,3,4,5,6);
+console.log(a.reduce(function(v1,v2){
+    return v1+v2;
+})); // 21
+
+console.log(a.reduceRight(function(v1,v2){
+    return v1-v2;
+},100)); // 79
+
+/******************filter
+var a=new Array(1,2,3,4,5,6);
+console.log(a.filter(function(e){
+    return e%2==0;//能被2整除的
+})); // [2, 4, 6] 
+console.log(a); //[1, 2, 3, 4, 5, 6]
+
+/******************map
+var a=new Array(1,2,3,4,5,6);
+console.log(a.map(function(e){
+    return e*e;
+})); // [1, 4, 9, 16, 25, 36]
+console.log(a); //[1, 2, 3, 4, 5, 6]
+
+/*****************some
+var a=new Array(1,2,3,4,5,6);
+console.log(a.some(function(e,i,arr){
+    console.log(i+' : '+e);
+    return e>4;
+}));
+/*0 : 1
+: 2
+: 3
+: 4
+: 5
+true */
+//如果改成return e>6;则返回false
+
+/*****************every
+var a=new Array(1,2,3,4,5,6);
+console.log(a.every(function(e,i,arr){
+    console.log(i+' : '+e);
+    return e<5;
+}));
+/*0 : 1
+: 2
+: 3
+: 4
+: 5
+false */
+//如果改成return e<7; 则最终结果是true
+
+/*****************forEach
+var a=new Array(1,2,3,4,5,6);
+a.forEach(function(e,i,array){
+    array[i]=e+1;//array：当前数组，i：当前索引，e：当前元素
+});
+console.log(a); //[2, 3, 4, 5, 6, 7] 

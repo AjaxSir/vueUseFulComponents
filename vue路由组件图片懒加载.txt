@@ -1,0 +1,34 @@
+路由懒加载
+{
+      path: '/',
+      name: 'HelloWorld',
+      component: resolve=>(require(["@/components/HelloWorld"],resolve))
+    }
+
+const HelloWorld = ()=>import("@/components/HelloWorld")
+
+
+
+组件懒加载
+1.const One = ()=>import("./one");
+export default {
+  components:{
+    "One-com":One
+  },
+2. components: {
+        aview: function(resolve) {
+            require(["./a.vue"], resolve);
+        }, // 异步
+        aview: require("./b.vue"); 同步
+    }
+图片懒加载
+1.npm install vue-lazyload --save-dev
+2.main.js引入插件：
+
+import VueLazyLoad from 'vue-lazyload'
+Vue.use(VueLazyLoad,{
+    error:require('./static/error.png'),
+    loading:require('./static/loading.png')
+})
+使用
+<img class="item-pic" v-lazy="newItem.picUrl"/>
