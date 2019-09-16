@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>vue 双向绑定</title>
+</head>
+<body>
+<div id='app'>
+	<h1>你好啊</h1>
+	<div>
+		<div v-text='test'></div>
+		<div v-text='home'></div>
+		<input v-model='test'>
+		<input v-model='home'>
+	</div>
+</div>
+<script>
+	class Vue {
+		// 获取参数
+		constructor(option) {
+			this.$data = option.data
+			this.$el = document.querySelector(option.el)
+			
+			this._dir = {} // 装下对应指令的watcher
+			// { test: [订阅1,订阅2],test2 [订阅1,订阅2]}
+			this.Observe(this.$data)
+			this.Combile(this.$el)
+		}
+		Observe(data) {
+			for(let key in data) {
+				this._dir[key] = []
+				const watcher = this._dir[key]
+				let val = data[key]
+				Object.defineProperty(this.$data, key, {
+				set: function (newValue) {
+					if (val !== newValue) {
+						val = newValue
+						watcher.forEach(item => {
+							item.update()
+						})
+					}
+					
+				},
+				get:function(){
+					return val;
+				}
+			})
+			}
+		}
+		// 解析指令
+		Combile(el) {
+			for(var i = 0; i< el.children.length; i++) {
+				const item = el.children[i]
+				if(item.children.length) {
+					this.Combile(item)
+				} else {
+					if (item.hasAttribute('v-text')) {
+						const val = item.getAttribute('v-text')
+						this._dir[val].push(new Watcher(item, val, 'innerHTML', this.$data))
+					}
+					if (item.hasAttribute('v-model')) {
+						const val = item.getAttribute('v-model')
+						this._dir[val].push(new Watcher(item, val, 'value', this.$data))
+						item.addEventListener('input', function(){
+							this.$data[val] = item.value
+						}.bind(this))
+					}
+				}
+			}
+		}
+	}
+	// 订阅者
+	class Watcher{
+		constructor(node, key, type, data) {
+			this.node = node
+			this.key = key
+			this.type = type
+			this.data = data
+			this.update()
+		}
+		update() {
+			this.node[this.type] = this.data[this.key]
+		}
+	}
+
+	const app = new Vue({
+		el: '#app',
+		data: {
+			test: '测试',
+			home: '主页'
+		}
+	})
+</script>
+</body>
+</html>
